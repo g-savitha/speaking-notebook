@@ -1,1 +1,171 @@
-[]
+[
+  {
+    "id": "en-2026-10-21-1",
+    "date": "2026-10-21",
+    "type": "metric",
+    "fillers": {
+      "like (quotative)": 6,
+      "okay? (tag)": 5,
+      "you know": 3,
+      "I don't know/maybe (hedge)": 5,
+      "bro/arre": 3,
+      "restarts": 7
+    },
+    "durationSec": 480,
+    "notes": "Approximate counts from a transcribed ~8 min voice note about her workday and a frustrating 3:30 PM product meeting."
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-2",
+    "date": "2026-10-21",
+    "type": "rephrasing",
+    "original": "It is difficult, it's not in this time crunch, it's very risky.",
+    "better": "I'd flag this as high-risk this close to release. A new animation now puts the Nov 11 date at risk. Here's what we can safely ship, and here's what the full version would take.",
+    "category": "tone",
+    "why": "Name the risk and offer options instead of just saying no.",
+    "context": "meeting"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-3",
+    "date": "2026-10-21",
+    "type": "rephrasing",
+    "original": "Bro, I'm not a designer. I won't be able to suggest.",
+    "better": "I can scope this from the engineering side: effort, risk, and feasibility. The visual call should sit with design. If design shares two or three options, we'll tell you which one we can deliver safely.",
+    "category": "tone",
+    "why": "Define your lane positively instead of stating what you can't do; drop 'bro' at work.",
+    "context": "meeting"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-4",
+    "date": "2026-10-21",
+    "type": "rephrasing",
+    "original": "No, it's not like that. It would take some time for us.",
+    "better": "It's not a skills gap, it's a timing issue. Any new pattern needs time to build and test, and we don't have that time two weeks before release.",
+    "category": "tone",
+    "why": "Reframe the accusation in one calm sentence.",
+    "context": "meeting"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-5",
+    "date": "2026-10-21",
+    "type": "diplomatic expression",
+    "original": "I get nothing in written. No recognition, nothing.",
+    "better": "I've been helping the team get clarity on this feature, and I'd like that to be visible. Can we capture it in my review notes?",
+    "category": "tone",
+    "why": "Ask for recognition concretely instead of complaining; also 'in writing', not 'in written'.",
+    "context": "meeting"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-6",
+    "date": "2026-10-21",
+    "type": "diplomatic expression",
+    "original": "Even today you are pitching in and asking for some changes. There's no proper clarity.",
+    "better": "We're getting requirement changes mid-sprint. Could design and product stay a sprint ahead so we build against signed-off specs?",
+    "category": "tone",
+    "why": "Turn the complaint into a process request.",
+    "context": "meeting"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-7",
+    "date": "2026-10-21",
+    "type": "phrase",
+    "original": "leave that about",
+    "better": "leave that aside",
+    "category": "grammar",
+    "why": "Fixed idiom is 'leave that aside'.",
+    "context": "casual"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-8",
+    "date": "2026-10-21",
+    "type": "phrase",
+    "original": "nobody has done animation still now",
+    "better": "nobody on the team has done animation before",
+    "category": "grammar",
+    "why": "'still now/till now' is Indian English; use 'before' or 'so far'.",
+    "context": "meeting"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-9",
+    "date": "2026-10-21",
+    "type": "phrase",
+    "original": "they're like, we are agile",
+    "better": "they said, \"we're agile\"",
+    "category": "filler",
+    "why": "Quotative 'like' sounds casual; use said/asked/told.",
+    "drill": "Retell a conversation using only 'said', 'asked', 'told'.",
+    "context": "casual"
+  },
+  {
+    "status": "new",
+    "seen": 1,
+    "lastSeen": "2026-10-21",
+    "revisit": {
+      "due": "2026-10-22",
+      "step": 0
+    },
+    "id": "en-2026-10-21-10",
+    "date": "2026-10-21",
+    "type": "feedback",
+    "original": "Spent the first half on context before the main point; restarts like 'I'm, and I'm, and I'm not'.",
+    "better": "Lead with the headline (point first), then context, what you said, outcome, question. Pause one second instead of restarting.",
+    "category": "structure",
+    "why": "Listeners lose the thread when the point comes late.",
+    "notes": "Good instincts in the meeting: flagged risk, escalated, came back with a trimmed plan. Words sounded defensive; calm framing sounds senior."
+  }
+]
