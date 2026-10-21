@@ -34,7 +34,8 @@ Rules:
 ```sh
 node scripts/validate.mjs
 npm run build && (npm run preview &) && node scripts/verify-ui.mjs                 # local, live data
-node scripts/verify-ui.mjs <url> <shotsDir> --bundled                             # use build-time data (test sample data in a temp copy)
+node scripts/verify-ui.mjs <url> <shotsDir> --bundled                             # use build-time data
+node scripts/verify-ui.mjs <url> <shotsDir> --data /tmp/sample/data               # serve sample data files instead of main
 node scripts/verify-ui.mjs https://g-savitha.github.io/speaking-notebook/ /tmp/shots   # live
 ```
 
@@ -45,7 +46,7 @@ node scripts/verify-ui.mjs https://g-savitha.github.io/speaking-notebook/ /tmp/s
 - the Bank debriefs start closed, and "Log my attempt" shows a valid command;
 - on the phone there's no horizontal scroll, and the console has no errors.
 
-It exits 1 on any failure. To test sample data, copy the repo to /tmp, seed it with `append.mjs`, build, and run with `--bundled`. Never commit sample data.
+It exits 1 on any failure. To test with sample data, copy the repo to /tmp, seed it with `append.mjs`, and run with `--data <copy>/data` (works against the live URL too). Never commit sample data.
 
 ### UI hooks
 

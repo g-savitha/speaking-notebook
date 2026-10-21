@@ -1,12 +1,15 @@
 // Usage: node scripts/verify-ui.mjs [url] [screenshotDir] [--bundled]
 // url defaults to the local preview (npm run build && npm run preview). Live: https://g-savitha.github.io/speaking-notebook/
-// --bundled blocks raw.githubusercontent.com so the page uses the data bundled at build time (for testing sample data).
+// --bundled blocks raw.githubusercontent.com so the page uses the data bundled at build time.
+// --data <dir> answers the page's raw.githubusercontent.com data requests from <dir>/*.json (sample data, any build).
 // Needs Chrome at CHROME_PATH (default /usr/bin/google-chrome); playwright-core is a devDependency.
 import { chromium } from "playwright-core";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 
 const args = process.argv.slice(2);
 const bundledOnly = args.includes("--bundled");
+const dataIndex = args.indexOf("--data");
+const dataDir = dataIndex === -1 ? null : args.splice(dataIndex, 2)[1];
 const [url = "http://localhost:4321/speaking-notebook/", shots] = args.filter((a) => a !== "--bundled");
 if (shots) mkdirSync(shots, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH ?? "/usr/bin/google-chrome", args: ["--no-sandbox"] });
@@ -54,6 +57,7 @@ async function checkLog(page, label, tab) {
 for (const [label, options] of Object.entries(viewports)) {
   const page = await browser.newPage(options);
   if (bundledOnly) await page.route("https://raw.githubusercontent.com/**", (r) => r.abort());
+  if (dataDir) await page.route("https://raw.githubusercontent.com/**", (r) => r.fulfill({ contentType: "application/json", body: readFileSync(`${dataDir}/${r.request().url().split("/").pop()}`, "utf8") }));
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => {
