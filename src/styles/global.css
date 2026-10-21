@@ -26,7 +26,7 @@ nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 button[role="tab"] {
   font: inherit; color: var(--muted); background: none;
   border: 1px solid var(--line); border-radius: 999px;
-  padding: 0.4rem 1rem; cursor: pointer; min-height: 44px;
+  padding: 0.4rem 0.85rem; cursor: pointer; min-height: 44px;
 }
 button[role="tab"][aria-selected="true"] { color: var(--text); background: var(--panel); border-color: var(--muted); }
 
@@ -67,6 +67,40 @@ table[data-layout="cards"] td { border: 0; padding: 0.3rem 0; }
 table[data-layout="cards"] td:not(.empty)::before { content: attr(data-label); display: block; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
 table[data-layout="cards"] td:is([data-key="id"], [data-key="title"], [data-key="reveal"])::before { content: none; }
 table[data-layout="cards"] td:is([data-key="category"], [data-key="difficulty"]) { display: inline-block; margin-right: 1.5rem; }
+
+h2 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+.note { color: var(--muted); font-size: 0.85rem; }
+.sub { color: var(--muted); font-size: 0.88rem; }
+.stack { display: flex; flex-direction: column; gap: 0.2rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.tag { font-size: 0.75rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 0.5rem; white-space: nowrap; }
+.tag[data-tag="type"], .tag[data-tag="pattern"] { color: var(--accent); }
+button:not([role="tab"]) {
+  font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.4rem 1rem; min-height: 44px; cursor: pointer;
+}
+pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 0.8rem; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem; margin: 0.5rem 0; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; max-width: 48rem; }
+.card .kicker { margin: 0 0 0.25rem; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.field { margin-top: 0.5rem; }
+.field p { margin: 0; }
+.label { display: block; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.review-buttons { display: flex; gap: 0.5rem; margin-top: 0.75rem; }
+.review-buttons button { flex: 1; max-width: 10rem; }
+
+[data-panel="habits"] section { max-width: 48rem; }
+.group h3 { font-size: 0.9rem; font-weight: 600; margin: 1rem 0 0.25rem; }
+.group ul { list-style: none; margin: 0; padding: 0; }
+.group li { border-bottom: 1px solid var(--line); padding: 0.5rem 0; }
+.group li p { margin: 0.2rem 0 0; }
+.group li .tags { display: inline-flex; margin-left: 0.4rem; }
+.trend { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.trend-repeating { color: #f0b37e; }
+.trend-improving { color: #8fd19e; }
+.trend-new { color: var(--muted); }
+[data-component="filler-trend"] svg { max-width: 100%; display: block; }
+[data-component="filler-trend"] rect { fill: var(--accent); opacity: 0.8; }
 
 @media (max-width: 640px) {
   table, tbody, tr, td { display: block; }

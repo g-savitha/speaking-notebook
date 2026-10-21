@@ -1,8 +1,14 @@
-export function el(tag, attrs = {}, text) {
+export function el(tag, attrs = {}, ...children) {
   const node = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
-  if (text !== undefined) node.textContent = text;
+  for (const [k, v] of Object.entries(attrs)) if (v !== undefined && v !== null) node.setAttribute(k, v);
+  node.append(...children.filter((c) => c !== undefined && c !== null && c !== ""));
   return node;
+}
+
+export function tags(entry, keys) {
+  const wrap = el("span", { class: "tags" });
+  for (const key of keys) if (entry[key] !== undefined) wrap.append(el("span", { class: "tag", "data-tag": key }, key === "seen" ? `seen ×${entry.seen}` : String(entry[key])));
+  return wrap;
 }
 
 function sortNewestFirst(entries) {
@@ -17,7 +23,10 @@ function matches(entry, columns, query, filterValues) {
     if (value && entry[key] !== value) return false;
   }
   if (!query) return true;
-  return columns.some(({ key, render }) => !render && String(entry[key] ?? "").toLowerCase().includes(query));
+  return columns.some(({ key, render, search }) => {
+    const text = search ? search(entry) : render ? "" : entry[key];
+    return String(text ?? "").toLowerCase().includes(query);
+  });
 }
 
 export function mountLog(container, { name, columns, filters = [], entries, layout = "table", newestFirst = true }) {
@@ -46,7 +55,8 @@ export function mountLog(container, { name, columns, filters = [], entries, layo
     const visible = rows.filter((entry) => matches(entry, columns, query, filterValues));
     const body = el("tbody");
     for (const entry of visible) {
-      const tr = el("tr", entry.id ? { "data-entry-id": entry.id } : {});
+      const tr = el("tr", { "data-entry-id": entry.id });
+      for (const { key } of filters) if (entry[key] !== undefined) tr.setAttribute(`data-filter-${key}`, entry[key]);
       for (const { key, label, render } of columns) {
         const td = el("td", { "data-key": key, "data-label": label });
         if (render) td.append(render(entry));

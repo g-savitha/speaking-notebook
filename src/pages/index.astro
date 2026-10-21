@@ -15,15 +15,19 @@ import "../styles/global.css";
   <main id="app" data-component="app" data-state="loading">
     <header>
       <h1>Speaking notebook</h1>
-      <p class="sub">Evening sessions: English with Valmiki, strategy with Kanha.</p>
-      <nav role="tablist" aria-label="Logs">
-        <button role="tab" id="tab-english" data-tab="english" aria-controls="panel-english" aria-selected="true">English</button>
-        <button role="tab" id="tab-strategy" data-tab="strategy" aria-controls="panel-strategy" aria-selected="false">Strategy log</button>
-        <button role="tab" id="tab-scenarios" data-tab="scenarios" aria-controls="panel-scenarios" aria-selected="false">Scenario bank</button>
+      <p class="sub">Where I slip, the fix, and when to revisit. English with Valmiki, strategy with Kanha.</p>
+      <nav role="tablist" aria-label="Views">
+        <button role="tab" id="tab-revise" data-tab="revise" aria-controls="panel-revise" aria-selected="true">Revise</button>
+        <button role="tab" id="tab-english" data-tab="english" aria-controls="panel-english" aria-selected="false">English</button>
+        <button role="tab" id="tab-strategy" data-tab="strategy" aria-controls="panel-strategy" aria-selected="false">Strategy</button>
+        <button role="tab" id="tab-habits" data-tab="habits" aria-controls="panel-habits" aria-selected="false">Habits</button>
+        <button role="tab" id="tab-scenarios" data-tab="scenarios" aria-controls="panel-scenarios" aria-selected="false">Bank</button>
       </nav>
     </header>
-    <section role="tabpanel" id="panel-english" data-panel="english" aria-labelledby="tab-english"></section>
+    <section role="tabpanel" id="panel-revise" data-panel="revise" aria-labelledby="tab-revise"></section>
+    <section role="tabpanel" id="panel-english" data-panel="english" aria-labelledby="tab-english" hidden></section>
     <section role="tabpanel" id="panel-strategy" data-panel="strategy" aria-labelledby="tab-strategy" hidden></section>
+    <section role="tabpanel" id="panel-habits" data-panel="habits" aria-labelledby="tab-habits" hidden></section>
     <section role="tabpanel" id="panel-scenarios" data-panel="scenarios" aria-labelledby="tab-scenarios" hidden></section>
     <p class="status" data-component="status" role="status">Loading…</p>
   </main>

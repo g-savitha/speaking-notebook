@@ -1,32 +1,44 @@
-// Usage: node scripts/append.mjs <english|strategy|scenarios> '<entry JSON object or array of objects>'
-// Appends to data/<file>.json, fills in "id" (<date>-<n>) when missing, then runs validate.mjs.
-// If validation fails the file is restored unchanged and the exit code is 1.
-import { readFileSync, writeFileSync } from "node:fs";
-import { execFileSync } from "node:child_process";
-import { fileURLToPath } from "node:url";
+// node scripts/append.mjs <english|strategy|scenarios> '<entry JSON or array>'
+//   English/strategy: fills id, status "new", seen 1, lastSeen = date, revisit {due: date+1, step 0}.
+//   English: an entry whose "original" matches an existing one (ignoring case and spacing) bumps that entry instead.
+// node scripts/append.mjs <english|strategy> --bump <id> [--date YYYY-MM-DD]
+//   The same mistake came up again: seen+1, lastSeen = date (default today), revisit back to step 0 (due the next day).
+import { bump, localToday, normalize, withDefaults } from "../src/lib/revisit.mjs";
+import { fail, load, logOf, option, save } from "./store.mjs";
 
-const [name, json] = process.argv.slice(2);
-if (!["english", "strategy", "scenarios"].includes(name) || !json) {
-  console.error("usage: node scripts/append.mjs <english|strategy|scenarios> '<entry JSON>'");
+const args = process.argv.slice(2);
+const bumpId = option(args, "--bump");
+const date = option(args, "--date") ?? localToday();
+const [name, json] = args;
+const usage = "usage: node scripts/append.mjs <english|strategy|scenarios> '<entry JSON>'\n       node scripts/append.mjs <english|strategy> --bump <id> [--date YYYY-MM-DD]";
+if (!["english", "strategy", "scenarios"].includes(name) || (!json && !bumpId)) {
+  console.error(usage);
   process.exit(2);
 }
-const path = fileURLToPath(new URL(`../data/${name}.json`, import.meta.url));
-const before = readFileSync(path, "utf8");
-const data = JSON.parse(before);
-const incoming = [JSON.parse(json)].flat();
-for (const [i, entry] of incoming.entries()) {
-  if (!entry.id && entry.date) {
-    const n = data.filter((e) => e.id?.startsWith(`${entry.date}-`)).length + 1;
-    incoming[i] = { id: `${entry.date}-${n}`, ...entry };
+
+const data = load(name);
+const done = [];
+const bumpAt = (i, on) => {
+  data[i] = bump(data[i], on);
+  done.push(`bumped ${data[i].id} (seen ${data[i].seen}, due ${data[i].revisit.due})`);
+};
+
+if (bumpId) {
+  if (name === "scenarios" || logOf(bumpId) !== name) fail(`--bump ${bumpId} doesn't belong to ${name}`);
+  const i = data.findIndex((e) => e.id === bumpId);
+  if (i === -1) fail(`no entry ${bumpId} in data/${name}.json`);
+  bumpAt(i, date);
+} else {
+  for (const entry of [JSON.parse(json)].flat()) {
+    const match = name === "english" && entry.original ? data.findIndex((e) => normalize(e.original) === normalize(entry.original)) : -1;
+    if (match !== -1) {
+      bumpAt(match, entry.date ?? date);
+      continue;
+    }
+    const added = name === "scenarios" ? entry : withDefaults(name, entry, data);
+    data.push(added);
+    done.push(`appended ${added.id}`);
   }
-  data.push(incoming[i]);
 }
-writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`);
-try {
-  execFileSync(process.execPath, [fileURLToPath(new URL("validate.mjs", import.meta.url)), name], { stdio: "inherit" });
-  console.log(`appended ${incoming.map((e) => e.id).join(", ")}`);
-} catch {
-  writeFileSync(path, before);
-  console.error(`data/${name}.json restored; nothing appended`);
-  process.exit(1);
-}
+if (!save(name, data)) process.exit(1);
+for (const line of done) console.log(line);

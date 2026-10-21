@@ -1,18 +1,185 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "English speaking log",
+  "title": "English speaking log (Valmiki)",
+  "description": "Append with scripts/append.mjs, which fills id, status, seen, lastSeen and revisit.",
   "type": "array",
   "items": {
-    "type": "object",
-    "required": ["date", "type", "original", "better"],
-    "additionalProperties": false,
-    "properties": {
-      "id": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}-\\d+$", "description": "Optional. <date>-<n>, unique in this file." },
-      "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "Session date, YYYY-MM-DD." },
-      "type": { "type": "string", "enum": ["phrase", "rephrasing", "diplomatic expression", "feedback"] },
-      "original": { "type": "string", "minLength": 1, "description": "What she said." },
-      "better": { "type": "string", "minLength": 1, "description": "Better version." },
-      "notes": { "type": "string" }
+    "oneOf": [
+      {
+        "$ref": "#/$defs/mistake"
+      },
+      {
+        "$ref": "#/$defs/metric"
+      }
+    ]
+  },
+  "$defs": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "format": "date"
+    },
+    "revisit": {
+      "type": "object",
+      "required": [
+        "due",
+        "step"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "due": {
+          "$ref": "#/$defs/date"
+        },
+        "step": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Index into the 1, 3, 7, 21 day intervals."
+        }
+      }
+    },
+    "mistake": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "date",
+        "type",
+        "original",
+        "better",
+        "category",
+        "why",
+        "status",
+        "seen",
+        "lastSeen",
+        "revisit"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^en-\\d{4}-\\d{2}-\\d{2}-\\d+$"
+        },
+        "date": {
+          "$ref": "#/$defs/date"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "phrase",
+            "rephrasing",
+            "diplomatic expression",
+            "feedback"
+          ]
+        },
+        "original": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What she said."
+        },
+        "better": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Better version."
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "filler",
+            "pausing",
+            "grammar",
+            "word-choice",
+            "tone",
+            "structure",
+            "pronunciation",
+            "pacing"
+          ]
+        },
+        "why": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One line: why the better version is better."
+        },
+        "drill": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional practice sentence."
+        },
+        "context": {
+          "type": "string",
+          "enum": [
+            "meeting",
+            "interview",
+            "demo",
+            "presentation",
+            "casual"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "new",
+            "practicing",
+            "mastered"
+          ]
+        },
+        "seen": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "How many times this mistake has come up."
+        },
+        "lastSeen": {
+          "$ref": "#/$defs/date"
+        },
+        "revisit": {
+          "$ref": "#/$defs/revisit"
+        }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "date",
+        "type",
+        "fillers",
+        "durationSec"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^en-\\d{4}-\\d{2}-\\d{2}-\\d+$"
+        },
+        "date": {
+          "$ref": "#/$defs/date"
+        },
+        "type": {
+          "type": "string",
+          "const": "metric"
+        },
+        "fillers": {
+          "type": "object",
+          "description": "Filler word -> count, e.g. {\"um\": 4, \"like\": 2}.",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "durationSec": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "wpm": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
     }
   }
 }
