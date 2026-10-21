@@ -97,5 +97,3 @@ GitHub Pages serves the `gh-pages` branch (root). Only code changes need `npm ru
 Code: `src/pages/index.astro` (markup), `src/lib/table.mjs` (one generic table, search and filter renderer driven
 by a column config), `src/lib/app.mjs` (the three tab configs and data loading), `src/styles/global.css`.
 All data is written with `textContent`, never as HTML.
-
-@fueledbycuriosity_
