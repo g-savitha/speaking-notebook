@@ -1,0 +1,1 @@
+var e=[`overexplaining`,`reacting emotionally`,`giving away credit`,`avoiding conflict`,`oversharing`,`saying yes too fast`];export{e as default};
