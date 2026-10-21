@@ -1,0 +1,21 @@
+{
+  "name": "speaking-notebook",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/validate.mjs && astro build",
+    "preview": "astro preview",
+    "validate": "node scripts/validate.mjs",
+    "verify:ui": "node scripts/verify-ui.mjs",
+    "deploy": "npm run build && gh-pages -d dist --nojekyll -m \"deploy: $(git rev-parse --short HEAD)\""
+  },
+  "devDependencies": {
+    "astro": "^7.4.1",
+    "gh-pages": "^6.3.0",
+    "playwright-core": "^1.64.1"
+  }
+}

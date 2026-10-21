@@ -1,0 +1,35 @@
+---
+import "../styles/global.css";
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1f2023">
+  <link rel="icon" href="data:,">
+  <title>Speaking notebook</title>
+</head>
+<body>
+  <main id="app" data-component="app" data-state="loading">
+    <header>
+      <h1>Speaking notebook</h1>
+      <p class="sub">Evening sessions: English with Valmiki, strategy with Kanha.</p>
+      <nav role="tablist" aria-label="Logs">
+        <button role="tab" id="tab-english" data-tab="english" aria-controls="panel-english" aria-selected="true">English</button>
+        <button role="tab" id="tab-strategy" data-tab="strategy" aria-controls="panel-strategy" aria-selected="false">Strategy log</button>
+        <button role="tab" id="tab-scenarios" data-tab="scenarios" aria-controls="panel-scenarios" aria-selected="false">Scenario bank</button>
+      </nav>
+    </header>
+    <section role="tabpanel" id="panel-english" data-panel="english" aria-labelledby="tab-english"></section>
+    <section role="tabpanel" id="panel-strategy" data-panel="strategy" aria-labelledby="tab-strategy" hidden></section>
+    <section role="tabpanel" id="panel-scenarios" data-panel="scenarios" aria-labelledby="tab-scenarios" hidden></section>
+    <p class="status" data-component="status" role="status">Loading…</p>
+  </main>
+  <footer>@fueledbycuriosity_</footer>
+  <script>
+    import "../lib/app.mjs";
+  </script>
+</body>
+</html>

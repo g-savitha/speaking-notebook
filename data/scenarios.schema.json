@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Strategy scenario bank (drafted by Kanha)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "title", "category", "difficulty", "scenario", "question", "principles", "sampleResponse", "commonMistake"],
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string", "pattern": "^S\\d{2,}$", "description": "Required. S01, S02, ... unique in this file. Log entries reference it as scenarioId." },
+      "title": { "type": "string", "minLength": 1 },
+      "category": { "type": "string", "minLength": 1, "description": "Free text, e.g. \"Credit and visibility\". The UI filter lists whatever categories exist." },
+      "difficulty": { "type": "string", "enum": ["easy", "medium", "hard"] },
+      "scenario": { "type": "string", "minLength": 1 },
+      "question": { "type": "string", "minLength": 1 },
+      "principles": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": ["source", "citation", "idea"],
+          "additionalProperties": false,
+          "properties": {
+            "source": { "type": "string", "minLength": 1, "description": "e.g. \"The 48 Laws of Power\"" },
+            "citation": { "type": "string", "minLength": 1, "description": "e.g. \"Law 5: So Much Depends on Reputation\"" },
+            "idea": { "type": "string", "minLength": 1 }
+          }
+        }
+      },
+      "sampleResponse": { "type": "string", "minLength": 1 },
+      "commonMistake": { "type": "string", "minLength": 1 }
+    }
+  }
+}
